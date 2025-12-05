@@ -394,5 +394,15 @@
         // Iniciar o jogo
         init();
     </script>
+
+<script>
+document.addEventListener("click", function() {
+    const audio = document.getElementById("bg-audio");
+    audio.volume = 0.6; // ajuste se quiser
+    audio.play();
+}, { once: true });
+</script>
+
+    
 </body>
 </html>
