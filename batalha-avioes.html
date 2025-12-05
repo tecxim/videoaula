@@ -138,8 +138,9 @@
 </head>
 <body>
 
-    <!-- 🎵 ÁUDIO DE FUNDO DO JOGO -->
-    <audio id="bg-audio" src="https://raw.githubusercontent.com/tecxim/teste_game/main/videoaula/som-aviao.mp3" autoplay loop></audio>
+    <audio id="bgMusic" loop>
+    <source src="https://raw.githubusercontent.com/tecxim/teste_game/main/videoaula/som-aviao.mp3">
+    </audio>
 
     <div id="game-container">
         <div id="sky">
@@ -396,11 +397,18 @@
     </script>
 
 <script>
-document.addEventListener("click", function() {
-    const audio = document.getElementById("bg-audio");
-    audio.volume = 0.6; // ajuste se quiser
-    audio.play();
-}, { once: true });
+function enableAudio() {
+    const bg = document.getElementById("bgMusic");
+    bg.volume = 0.6;
+    bg.play().catch(() => {}); 
+    document.removeEventListener("click", enableAudio);
+    document.removeEventListener("keydown", enableAudio);
+    document.removeEventListener("touchstart", enableAudio);
+}
+
+document.addEventListener("click", enableAudio);
+document.addEventListener("keydown", enableAudio);
+document.addEventListener("touchstart", enableAudio);
 </script>
 
     
