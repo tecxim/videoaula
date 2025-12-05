@@ -137,12 +137,17 @@
     </style>
 </head>
 <body>
+
+    <!-- 🎵 ÁUDIO DE FUNDO DO JOGO -->
+    <audio id="bg-audio" src="https://raw.githubusercontent.com/tecxim/teste_game/main/videoaula/som-aviao.mp3" autoplay loop></audio>
+
     <div id="game-container">
         <div id="sky">
             <div class="cloud" style="width: 100px; height: 40px; top: 50px; left: -100px;"></div>
             <div class="cloud" style="width: 150px; height: 60px; top: 100px; left: -150px; animation-delay: 5s;"></div>
             <div class="cloud" style="width: 80px; height: 30px; top: 30px; left: -80px; animation-delay: 10s;"></div>
         </div>
+
         <div id="player-plane"></div>
         <div id="score">Pontos: 0</div>
         <div id="game-over">
