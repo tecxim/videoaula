@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofuscador de JavaScript - WRSystems</title>
+    <meta name="description" content="Ofusque seu código JavaScript para protegê-lo contra cópia e engenharia reversa. Ferramenta gratuita e fácil de usar.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--secondary);
+        }
+
+        main {
+            padding: 40px 0;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #219653;
+        }
+
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background-color: #d35400;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .result-box {
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .info-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-section h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">WRSystems - Ofuscador JS</div>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="hero">
+                <h1>Ofuscador de JavaScript</h1>
+                <p>Proteja seu código JavaScript ofuscando-o para dificultar a leitura e cópia não autorizada. Esta ferramenta é gratuita, fácil de usar e não requer instalação.</p>
+            </section>
+
+            <div class="card">
+                <h2>Insira seu código JavaScript</h2>
+                <div class="form-group">
+                    <textarea id="inputCode" placeholder="Cole seu código JavaScript aqui..."></textarea>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="obfuscateBtn">Ofuscar Código</button>
+                    <button class="btn btn-success" id="sampleBtn">Carregar Exemplo</button>
+                    <button class="btn btn-warning" id="resetBtn">Limpar</button>
+                </div>
+            </div>
+
+            <div class="card result-box" style="display: none;" id="resultCard">
+                <h2>Código Ofuscado</h2>
+                <button class="copy-btn" id="copyBtn"><i class="fas fa-copy"></i> Copiar</button>
+                <div class="form-group">
+                    <textarea id="outputCode" readonly></textarea>
+                </div>
+            </div>
+
+            <section class="info-section">
+                <h2>Como usar o Ofuscador de JavaScript?</h2>
+                <ol>
+                    <li>Cole seu código JavaScript na caixa de texto acima.</li>
+                    <li>Clique no botão <strong>Ofuscar Código</strong>.</li>
+                    <li>O código ofuscado será exibido na caixa de resultado.</li>
+                    <li>Copie o código ofuscado para uso em seu projeto.</li>
+                </ol>
+
+                <h2>Por que ofuscar seu código?</h2>
+                <p>Ofuscar seu código JavaScript torna-o difícil de ler e entender, protegendo-o contra:</p>
+                <ul>
+                    <li>Cópia não autorizada.</li>
+                    <li>Engenharia reversa.</li>
+                    <li>Roubo de propriedade intelectual.</li>
+                </ul>
+
+                <h2>Como funciona a ofuscação?</h2>
+                <p>O ofuscador renomeia variáveis, remove espaços em branco e adiciona caracteres aleatórios para tornar o código ilegível, sem alterar sua funcionalidade.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 WRSystems - Ofuscador de JavaScript. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Função para ofuscar código JavaScript
+        function obfuscateCode(code) {
+            // Remove comentários
+            code = code.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '');
+            // Renomeia variáveis e funções para caracteres aleatórios
+            const variables = code.match(/([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?:=|:)/g) || [];
+            const functions = code.match(/function\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\(/g) || [];
+
+            // Gera nomes aleatórios para variáveis
+            variables.forEach(varName => {
+                const newName = `_${Math.random().toString(36).substr(2, 5)}`;
+                code = code.replace(new RegExp(`\\b${varName.trim().split(' ')[0]}\\b`, 'g'), newName);
+            });
+
+            // Gera nomes aleatórios para funções
+            functions.forEach(func => {
+                const funcName = func.match(/function\s+([a-zA-Z_$][a-zA-Z0-9_$]*)/)[1];
+                const newName = `_${Math.random().toString(36).substr(2, 5)}`;
+                code = code.replace(new RegExp(`\\b${funcName}\\b`, 'g'), newName);
+            });
+
+            // Remove espaços em branco desnecessários
+            code = code.replace(/\s+/g, ' ').trim();
+            // Adiciona caracteres aleatórios para aumentar a ofuscação
+            code = code.split('').map(c => {
+                if (Math.random() > 0.9 && c !== '"' && c !== "'" && c !== '`') {
+                    return c + String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+                }
+                return c;
+            }).join('');
+
+            return code;
+        }
+
+        // Função para carregar exemplo
+        function loadSample() {
+            const sampleCode = `// Exemplo de código JavaScript
+function calculateSum(a, b) {
+    return a + b;
+}
+
+const result = calculateSum(5, 10);
+console.log("O resultado é: " + result);`;
+            document.getElementById('inputCode').value = sampleCode;
+        }
+
+        // Função para copiar código ofuscado
+        function copyToClipboard() {
+            const outputCode = document.getElementById('outputCode');
+            outputCode.select();
+            document.execCommand('copy');
+            alert('Código copiado para a área de transferência!');
+        }
+
+        // Eventos dos botões
+        document.getElementById('obfuscateBtn').addEventListener('click', () => {
+            const inputCode = document.getElementById('inputCode').value;
+            if (!inputCode.trim()) {
+                alert('Por favor, insira um código JavaScript.');
+                return;
+            }
+            const obfuscatedCode = obfuscateCode(inputCode);
+            document.getElementById('outputCode').value = obfuscatedCode;
+            document.getElementById('resultCard').style.display = 'block';
+        });
+
+        document.getElementById('sampleBtn').addEventListener('click', loadSample);
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            document.getElementById('inputCode').value = '';
+            document.getElementById('outputCode').value = '';
+            document.getElementById('resultCard').style.display = 'none';
+        });
+
+        document.getElementById('copyBtn').addEventListener('click', copyToClipboard);
+
+        // Toggle de tema (escuro/claro)
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('#themeToggle i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                document.documentElement.style.setProperty('--primary', '#34495e');
+                document.documentElement.style.setProperty('--secondary', '#2980b9');
+                document.documentElement.style.setProperty('--light', '#34495e');
+                document.documentElement.style.setProperty('--dark', '#ecf0f1');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                document.documentElement.style.setProperty('--primary', '#2c3e50');
+                document.documentElement.style.setProperty('--secondary', '#3498db');
+                document.documentElement.style.setProperty('--light', '#ecf0f1');
+                document.documentElement.style.setProperty('--dark', '#2c3e50');
+            }
+        });
+    </script>
+</body>
+</html>
